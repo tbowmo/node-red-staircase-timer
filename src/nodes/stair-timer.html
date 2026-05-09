@@ -1,0 +1,137 @@
+<script type="text/html" data-help-name="stairtimer">
+    <p>Staircase type timer (turns on output for a defined time, and then shuts off)</p>
+
+    <h3>Output</h3>
+        <dl class="message-properties">
+            <dt>payload <span class="property-type">string | object | number</span></dt>
+            <dd>This is set to the value of the onMsg or offMsg properties in the configuration (depending on state)</dd>
+            <dt>topic <span class="property-type">string</span></dt>
+            <dd>Topic set in the configuration properties</dd>
+        </dl>
+        <p>
+            On payload is sent when activated, and off payload when deactivated
+        </p>
+
+    <h3>Input</h3>
+    <p>
+        The input can be used as an override by simply sending a text or numeric message as payload. Valid (case-insensitive)
+        messages passed in via msg.payload include:
+    </p>
+        <dl class="message-properties">
+            <dt class="optional">payload <span class="property-type">string as specified</span></dt>
+            <dd>if present the output will be triggered immediately regardless of the payload value</dd>
+            <dt class="optional">light_level <span class="property-type">number</span></dt>
+            <dd>Optional value that sets the current light level (in lux or any other measuring unit)</dd>
+            <dt class="optional">disabled <span class="property-type">boolean</span></dt>
+            <dd>When set to true, the timer will be disabled and will not activate until re-enabled</dd>
+        </dl>
+
+    <h3>Details</h3>
+        <h4>Basic operation</h4>
+        <p>
+            When the timer receives an input message, it will immediately send the onMsg payload to the output and start a timer for the duration specified in the configuration. Once the timer expires, it will send the offMsg payload to the output. If another input message is received while the timer is active, it will reset the timer and send the onMsg payload again.
+        </p>
+        <h4>Light level override</h4>
+        <p>
+            If the input message includes a light_level property, the value will be compared to the max light level specified in the configuration. If the current light level exceeds the max light level, the timer will not activate and no messages will be sent to the output.
+        </p>
+        <h4>Disable/enable override</h4>
+        <p>
+            If the input message includes a disabled property set to true, the timer will be disabled and will not activate until it receives another message with disabled set to false or the property is removed. When disabled, the timer will ignore all input messages and will not send any output messages.
+        </p>
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/tbowmo/node-red-staircase-timer">Github</a> - The github repository</li>
+    </ul>
+</script>
+
+<script type="text/html" data-template-name="stairtimer">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <hr />
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-onMsg"><i class="fa fa-sign-out"></i> On message</label>
+        <input type="text" id="node-input-onMsg">
+        <input type="hidden" id="node-input-onMsgType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-offMsg"><i class="fa fa-sign-out"></i> Off message</label>
+        <input  type="text" id="node-input-offMsg">
+        <input type="hidden" id="node-input-offMsgType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-delay"><i class="fa fa-clock-o"></i> Delay</label>
+        <div style="display:inline-block;">
+            <div class="stair-timer-delay">
+                <input id="node-input-delay" value="1" type="number">
+                <select style="width:100px" id="node-input-delayUnits">
+                    <option value="s">Seconds</option>
+                    <option value="m">Minutes</option>
+                    <option value="h">Hours</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <label for=""node-input-lux"><i class="fa fa-sun-o"></i> Max light</label>
+        <input id="node-input-lux" value="10">
+    </div>
+</script>
+<style>
+    .stair-timer-delay {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 327px;
+        gap: 10px;
+    }
+</style>
+
+<script type="text/javascript">
+
+    (function () {
+        RED.nodes.registerType('stairtimer', {
+            category: 'advanced-input',
+            color: "#88dd22",
+            inputLabels: "Optional overrides",
+            outputLabels: ["status message", "debug output"],
+            defaults: {
+                name: { value: 'Staircase timer', required: true },
+
+                topic: { value: '' },
+
+                onMsg: { value: '1' },
+                onMsgType: { value: 'str' },
+
+                offMsg: { value: '0' },
+                offMsgType: { value: 'str' },
+
+                delay: { value: 10, required: true },
+                delayUnits: { value: 's', required: true },
+
+                lux: { value: 10, required: true }
+
+            },
+            icon: "timer.png",
+            inputs: 1,
+            outputs: 1,
+            label: function () {
+                return this.name || this.prefix;
+            },
+            labelStyle: function () {
+                return this.name ? "node_label_italic" : "";
+            },
+            oneditprepare: function () {
+            },
+            oneditsave: function () {
+            }
+        })
+
+    })()
+</script>
