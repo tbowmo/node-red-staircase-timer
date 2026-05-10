@@ -3,7 +3,7 @@
     "author": {
         "name": "Thomas Bowman Mørch"
     },
-    "version": "0.1.0",
+    "version": "0.1.1",
     "engines": {
         "node": ">=22.0.0"
     },
@@ -36,12 +36,7 @@
     "homepage": "https://github.com/tbowmo/node-red-staircase-timer",
     "keywords": [
         "node-red",
-        "timer",
-        "sunset",
-        "sunrise",
-        "dawn",
-        "dusk",
-        "schedule"
+        "timer"
     ],
     "license": "GPL-2.0",
     "main": "index.js",
