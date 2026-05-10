@@ -16,6 +16,7 @@ describe('lib/stair-case-timer-runner', () => {
         const position = { latitude: 56.00, longitude: 10.00 }
         const configuration: IStairCaseTimerProperties = {
             delay: 1,
+            restart: true,
             delayUnit: 's',
             lux: 100,
             onMsg: '',
