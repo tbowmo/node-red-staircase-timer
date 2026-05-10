@@ -25,6 +25,7 @@ export class StaircaseTimerRunner {
     private readonly offMsgType: string
     private readonly maxLight: number
     private readonly delay: number
+    private readonly restart: boolean
 
     constructor(
         configuration: IStairCaseTimerProperties,
@@ -35,6 +36,7 @@ export class StaircaseTimerRunner {
         this.offMsg = configuration.offMsg
         this.onMsgType = configuration.onMsgType
         this.offMsgType = configuration.offMsgType
+        this.restart = configuration.restart
 
         switch (configuration.delayUnit) {
             case 'm':
@@ -144,7 +146,8 @@ export class StaircaseTimerRunner {
             return
         }
 
-        if (incomingMsg.payload !== undefined && incomingMsg.payload !== null) {
+        // If only trigger if payload is truthy, otherwise just update light level or disabled state
+        if (!!incomingMsg.payload && (this.restart || !this.currentState)) {
             if (this.currentLightLevel > this.maxLight || this.disabled) {
                 this.updateNodeStatus()
                 return

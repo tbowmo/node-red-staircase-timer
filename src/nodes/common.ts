@@ -19,4 +19,5 @@ export interface IStairCaseTimerProperties extends NodeDef {
     delay: number,
     delayUnit: string,
     lux: number,
+    restart: boolean,
 }

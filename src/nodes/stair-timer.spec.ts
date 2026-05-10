@@ -37,7 +37,7 @@ describe('node/stair-timer', () => {
         const flow  = [
             { 
                 id: 'n1', 
-                type: 'stairtimer', 
+                type: 'staircase timer', 
                 name: 'stair-timer', 
                 offMsg: '',
                 offMsgType: '',
@@ -55,7 +55,7 @@ describe('node/stair-timer', () => {
                 sinon.assert.calledOnce(stubs.stairCaseTimerRunner)
                 sinon.assert.calledWith(stubs.stairCaseTimerRunner, {
                     id: 'n1',
-                    type: 'stairtimer',
+                    type: 'staircase timer',
                     name: 'stair-timer',
                     offMsg: '',
                     offMsgType: '',
@@ -77,7 +77,7 @@ describe('node/stair-timer', () => {
         const flow  = [
             { 
                 id: 'n1', 
-                type: 'stairtimer', 
+                type: 'staircase timer', 
                 name: 'small-timer', 
                 offMsg: '',
                 offMsgType: '',
@@ -107,7 +107,7 @@ describe('node/stair-timer', () => {
         const flow  = [
             { 
                 id: 'n1', 
-                type: 'stairtimer', 
+                type: 'staircase timer', 
                 name: 'small-timer', 
                 offMsg: '',
                 offMsgType: '',

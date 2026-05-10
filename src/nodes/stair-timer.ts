@@ -7,7 +7,7 @@ import { StaircaseTimerRunner } from '../lib/stair-case-timer-runner'
 
 export = (RED: NodeAPI): void => {
     RED.nodes.registerType(
-        'stairtimer',
+        'staircase timer',
         function (this: IStairCaseTimerNode, props: IStairCaseTimerProperties) {
             RED.nodes.createNode(this, props)
 

@@ -13,6 +13,14 @@ npm install @tbowmo/node-red-staircase-timer
 
 Once installed, restart your node-red server, and you will have a set of new nodes available in your palette under timers.
 
+# Setup
+![image of configuration](images/staircase-timer-config.png)<br>
+Set the minimum light level, if used (remember to add a flow that can send a message with the `light_level` property), and configure the on/off messages to match your desired behavior.
+
+If `Restart timeout on new trigger` is checked (default), the timer will restart each time the input is triggered by a truthy payload. Note that if the output has already emitted an `onMsg`, a new `onMsg` will not be emitted in this case.
+
+If unchecked, successive triggers will not restart the timeout.
+
 # Output
 
 The node has a single output, which provides a standard node-red object:

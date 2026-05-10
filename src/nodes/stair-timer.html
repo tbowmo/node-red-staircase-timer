@@ -1,4 +1,4 @@
-<script type="text/html" data-help-name="stairtimer">
+<script type="text/html" data-help-name="staircase timer">
     <p>Staircase type timer (turns on output for a defined time, and then shuts off)</p>
 
     <h3>Output</h3>
@@ -45,7 +45,7 @@
     </ul>
 </script>
 
-<script type="text/html" data-template-name="stairtimer">
+<script type="text/html" data-template-name="staircase timer">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -79,8 +79,12 @@
         </div>
     </div>
     <div class="form-row">
-        <label for=""node-input-lux"><i class="fa fa-sun-o"></i> Max light</label>
+        <label for="node-input-lux"><i class="fa fa-sun-o"></i> Max light</label>
         <input id="node-input-lux" value="10">
+    </div>
+    <div class="form-row">
+        <input id="node-input-restart" type="checkbox" style="display: inline-block; width: auto; vertical-align: top;">
+        <label style="width: auto;" for="node-input-restart"> Restart timeout on new trigger</label>
     </div>
 </script>
 <style>
@@ -96,7 +100,7 @@
 <script type="text/javascript">
 
     (function () {
-        RED.nodes.registerType('stairtimer', {
+        RED.nodes.registerType('staircase timer', {
             category: 'advanced-input',
             color: "#88dd22",
             inputLabels: "Optional overrides",
@@ -115,7 +119,9 @@
                 delay: { value: 10, required: true },
                 delayUnits: { value: 's', required: true },
 
-                lux: { value: 10, required: true }
+                lux: { value: 10, required: true },
+
+                restart: { value: true }
 
             },
             icon: "timer.png",
@@ -128,6 +134,16 @@
                 return this.name ? "node_label_italic" : "";
             },
             oneditprepare: function () {
+                $("#node-input-onMsg").typedInput({
+                    typeField: "#node-input-onMsgType",
+                    default: 'str',
+                    types: ["str", "num", "bool", "json"],
+                })
+                $("#node-input-offMsg").typedInput({
+                    typeField: "#node-input-offMsgType",
+                    default: 'str',
+                    types: ["str", "num", "bool", "json"],
+                })
             },
             oneditsave: function () {
             }

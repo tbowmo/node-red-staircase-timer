@@ -1,0 +1,193 @@
+[
+    {
+        "id": "876e4e40c852cd8f",
+        "type": "inject",
+        "z": "a09871ea0d28cbda",
+        "name": "Trigger",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 410,
+        "y": 340,
+        "wires": [
+            [
+                "e148c9d40686ae9a"
+            ]
+        ]
+    },
+    {
+        "id": "0981f6e64ae569da",
+        "type": "debug",
+        "z": "a09871ea0d28cbda",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c48bf235f11baa03",
+        "type": "inject",
+        "z": "a09871ea0d28cbda",
+        "name": "light level 100",
+        "props": [
+            {
+                "p": "light_sensor",
+                "v": "100",
+                "vt": "num"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 430,
+        "y": 140,
+        "wires": [
+            [
+                "e148c9d40686ae9a"
+            ]
+        ]
+    },
+    {
+        "id": "b9939ccfee819e52",
+        "type": "inject",
+        "z": "a09871ea0d28cbda",
+        "name": "light level 7",
+        "props": [
+            {
+                "p": "light_sensor",
+                "v": "7",
+                "vt": "num"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "e148c9d40686ae9a"
+            ]
+        ]
+    },
+    {
+        "id": "0cdc389faf7e617a",
+        "type": "inject",
+        "z": "a09871ea0d28cbda",
+        "name": "disabled true",
+        "props": [
+            {
+                "p": "disable",
+                "v": "true",
+                "vt": "bool"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "e148c9d40686ae9a"
+            ]
+        ]
+    },
+    {
+        "id": "421f6d3247ed5622",
+        "type": "inject",
+        "z": "a09871ea0d28cbda",
+        "name": "disabled false",
+        "props": [
+            {
+                "p": "disable",
+                "v": "false",
+                "vt": "bool"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 430,
+        "y": 280,
+        "wires": [
+            [
+                "e148c9d40686ae9a"
+            ]
+        ]
+    },
+    {
+        "id": "e148c9d40686ae9a",
+        "type": "staircase timer",
+        "z": "a09871ea0d28cbda",
+        "name": "Staircase timer",
+        "topic": "",
+        "onMsg": "1",
+        "onMsgType": "str",
+        "offMsg": "0",
+        "offMsgType": "str",
+        "delay": 10,
+        "delayUnits": "s",
+        "lux": 10,
+        "restart": true,
+        "x": 720,
+        "y": 240,
+        "wires": [
+            [
+                "0981f6e64ae569da"
+            ]
+        ]
+    },
+    {
+        "id": "9f23e6d214a47faa",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@tbowmo/node-red-staircase-timer": "0.2.0"
+        }
+    }
+]
